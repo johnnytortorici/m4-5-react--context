@@ -1,19 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import useInterval from "../hooks/use-interval.hook";
-
+import items from "../data";
 import cookieSrc from "../cookie.svg";
 import Item from "./Item";
 
-const items = [
-  { id: "cursor", name: "Cursor", cost: 10, value: 1 },
-  { id: "grandma", name: "Grandma", cost: 100, value: 10 },
-  { id: "farm", name: "Farm", cost: 1000, value: 80 },
-];
-
-const calculateCookiesPerSecond = (purchasedItems) => {
+export const calculateCookiesPerSecond = (purchasedItems) => {
   return Object.keys(purchasedItems).reduce((acc, itemId) => {
     const numOwned = purchasedItems[itemId];
     const item = items.find((item) => item.id === itemId);
@@ -23,42 +16,32 @@ const calculateCookiesPerSecond = (purchasedItems) => {
   }, 0);
 };
 
-const Game = () => {
-  const [numCookies, setNumCookies] = React.useState(1000);
-
-  const [purchasedItems, setPurchasedItems] = React.useState({
-    cursor: 0,
-    grandma: 0,
-    farm: 0,
-  });
-
-  const incrementCookies = () => {
-    setNumCookies((c) => c + 1);
-  };
-
-  useInterval(() => {
-    const numOfGeneratedCookies = calculateCookiesPerSecond(purchasedItems);
-
-    setNumCookies(numCookies + numOfGeneratedCookies);
-  }, 1000);
-
-  React.useEffect(() => {
+const Game = ({
+  numCookies,
+  setNumCookies,
+  purchasedItems,
+  setPurchasedItems,
+}) => {
+  // update the document title when numCookies changes
+  useEffect(() => {
     document.title = `${numCookies} cookies - Cookie Clicker Workshop`;
-
     return () => {
       document.title = "Cookie Clicker Workshop";
     };
   }, [numCookies]);
 
-  React.useEffect(() => {
+  // function to increment cookies by 1
+  const incrementCookies = () => {
+    setNumCookies((c) => c + 1);
+  };
+
+  useEffect(() => {
     const handleKeydown = (ev) => {
       if (ev.code === "Space") {
         incrementCookies();
       }
     };
-
     window.addEventListener("keydown", handleKeydown);
-
     return () => {
       window.removeEventListener("keydown", handleKeydown);
     };

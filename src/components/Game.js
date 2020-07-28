@@ -15,7 +15,7 @@ const Game = () => {
     setNumCookies,
     purchasedItems,
     setPurchasedItems,
-    calculateCookiesPerSecond,
+    cookiesPerSecond,
   } = React.useContext(GameContext);
 
   // update the document title when numCookies changes
@@ -48,8 +48,7 @@ const Game = () => {
       <GameArea>
         <Indicator>
           <Total>{numCookies} cookies</Total>
-          <strong>{calculateCookiesPerSecond(purchasedItems)}</strong> cookies
-          per second
+          <strong>{cookiesPerSecond}</strong> cookies per second
         </Indicator>
         <Button onClick={incrementCookies}>
           <Cookie src={cookieSrc} />

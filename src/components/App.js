@@ -9,16 +9,12 @@ import Home from "./Home";
 import Game from "./Game";
 
 function App(props) {
-  const {
-    numCookies,
-    setNumCookies,
-    purchasedItems,
-    calculateCookiesPerSecond,
-  } = React.useContext(GameContext);
+  const { numCookies, setNumCookies, cookiesPerSecond } = React.useContext(
+    GameContext
+  );
 
   useInterval(() => {
-    const numOfGeneratedCookies = calculateCookiesPerSecond(purchasedItems);
-    setNumCookies(numCookies + numOfGeneratedCookies);
+    setNumCookies(numCookies + cookiesPerSecond);
   }, 1000);
 
   return (

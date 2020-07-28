@@ -30,7 +30,7 @@ export const GameProvider = ({ children }) => {
         setNumCookies,
         purchasedItems,
         setPurchasedItems,
-        calculateCookiesPerSecond,
+        cookiesPerSecond: calculateCookiesPerSecond(purchasedItems),
       }}
     >
       {children}

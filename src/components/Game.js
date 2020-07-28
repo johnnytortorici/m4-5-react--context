@@ -2,26 +2,22 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { GameContext } from "./GameContext";
+
 import items from "../data";
 import cookieSrc from "../cookie.svg";
 import Item from "./Item";
 
-export const calculateCookiesPerSecond = (purchasedItems) => {
-  return Object.keys(purchasedItems).reduce((acc, itemId) => {
-    const numOwned = purchasedItems[itemId];
-    const item = items.find((item) => item.id === itemId);
-    const value = item.value;
+const Game = () => {
+  // grab state from GameContext
+  const {
+    numCookies,
+    setNumCookies,
+    purchasedItems,
+    setPurchasedItems,
+    calculateCookiesPerSecond,
+  } = React.useContext(GameContext);
 
-    return acc + value * numOwned;
-  }, 0);
-};
-
-const Game = ({
-  numCookies,
-  setNumCookies,
-  purchasedItems,
-  setPurchasedItems,
-}) => {
   // update the document title when numCookies changes
   useEffect(() => {
     document.title = `${numCookies} cookies - Cookie Clicker Workshop`;

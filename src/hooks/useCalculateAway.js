@@ -14,8 +14,7 @@ const useCalculateAway = () => {
     const currentTime = new Date().getTime();
     const timeAway = Math.floor((currentTime - time) / 1000);
     setNumCookies(numCookies + timeAway * cookiesPerSecond);
-    console.log(numCookies);
-    console.log(numCookies + timeAway * cookiesPerSecond);
+    // eslint-disable-next-line
   }, []);
 };
 

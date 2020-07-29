@@ -6,6 +6,7 @@ import items from "../data";
 export const GameContext = React.createContext(null);
 
 export const GameProvider = ({ children }) => {
+  const [time, setTime] = useLocalStorage("time", new Date().getTime());
   const [numCookies, setNumCookies] = useLocalStorage("num-cookies", 1000);
   const [purchasedItems, setPurchasedItems] = useLocalStorage("owned-items", {
     cursor: 0,
@@ -26,6 +27,8 @@ export const GameProvider = ({ children }) => {
   return (
     <GameContext.Provider
       value={{
+        time,
+        setTime,
         numCookies,
         setNumCookies,
         purchasedItems,
